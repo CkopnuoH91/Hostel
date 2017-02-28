@@ -1,0 +1,33 @@
+﻿@model Hostel.Models.Room
+
+@{
+    ViewBag.Title = "Просмотр";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.RoomId }) |
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
