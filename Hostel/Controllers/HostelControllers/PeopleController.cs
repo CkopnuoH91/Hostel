@@ -41,7 +41,9 @@ namespace Hostel.Controllers.HostelControllers
         // GET: People/Create
         public ActionResult Create()
         {
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number");
+            var roomsAndPersonsCount = GetRoomsAndPersonsCount();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e =>  roomsAndPersonsCount[e] < e.Capacity).ToList();
+            ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number");
             return View();
         }
 
@@ -58,9 +60,9 @@ namespace Hostel.Controllers.HostelControllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            // db.Rooms.Distinct передать не повторяющиеся, доступные комнаты
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
+            var roomsAndPersonsCount = GetRoomsAndPersonsCount();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -77,7 +79,9 @@ namespace Hostel.Controllers.HostelControllers
                 return HttpNotFound();
             }
 
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
+            var roomsAndPersonsCount = GetRoomsAndPersonsCount();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -94,7 +98,9 @@ namespace Hostel.Controllers.HostelControllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
+            var roomsAndPersonsCount = GetRoomsAndPersonsCount();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -133,5 +139,27 @@ namespace Hostel.Controllers.HostelControllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult FreeRooms()
+        {
+            var roomsAndPersonsCount = GetRoomsAndPersonsCount();
+            return View(roomsAndPersonsCount);
+        }
+
+        private Dictionary<Room, int> GetRoomsAndPersonsCount()
+        {
+            Dictionary<Room, int> roomsWithPersons = new Dictionary<Room, int>();
+            foreach (var room in db.Rooms)
+            {
+                roomsWithPersons.Add(room, NumberPersonsInRoom(room.RoomId));
+            }
+            return roomsWithPersons;
+        }
+
+        private int NumberPersonsInRoom(int roomId)
+        {           
+            return db.Persons.Count(c => c.RoomId == roomId);
+        }
+
     }
 }

@@ -18,7 +18,7 @@ namespace Hostel.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Поле Количество мест не может быть пустым")]
         [Display(Name = "Количество мест")]
-        [Range(2, 4, ErrorMessage = "Количество мест в комнате должно быть от 2 до 4")]
+        [Range(2, 4, ErrorMessage = "Количество мест в комнате должно быть от 2 до 4")]       
         public int Capacity { get; set; }
             
         public List<Person> Persons { get; set; }

@@ -48,15 +48,22 @@ namespace Hostel.Controllers.HostelControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RoomId,Number,Capacity")] Room room)
         {
+            ViewBag.EqualNumbersOfRooms = "";
+            if (db.Rooms.Any(e => e.Number == room.Number))
+            {
+                ViewBag.EqualNumbersOfRooms = "Комната с таким номером уже существует";
+                return View(room);
+            }
             if (ModelState.IsValid)
             {
                 db.Rooms.Add(room);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             return View(room);
         }
+
 
         // GET: Rooms/Edit/5
         public ActionResult Edit(int? id)
@@ -80,6 +87,13 @@ namespace Hostel.Controllers.HostelControllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "RoomId,Number,Capacity")] Room room)
         {
+            ViewBag.EqualNumbersOfRooms = "";
+            if (db.Rooms.Any(e => e.Number == room.Number))
+            {
+                ViewBag.EqualNumbersOfRooms = "Комната с таким номером уже существует";
+                return View(room);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(room).State = EntityState.Modified;
