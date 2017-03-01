@@ -33,13 +33,15 @@ namespace Hostel.Controllers.HostelControllers
             {
                 return HttpNotFound();
             }
+
+            person.Room = db.Rooms?.Find(person.RoomId);
             return View(person);
         }
 
         // GET: People/Create
         public ActionResult Create()
         {
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "RoomId");
+            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number");
             return View();
         }
 
@@ -57,7 +59,8 @@ namespace Hostel.Controllers.HostelControllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "RoomId", person.RoomId);
+            // db.Rooms.Distinct передать не повторяющиеся, доступные комнаты
+            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -73,7 +76,8 @@ namespace Hostel.Controllers.HostelControllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "RoomId", person.RoomId);
+
+            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -90,7 +94,7 @@ namespace Hostel.Controllers.HostelControllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "RoomId", person.RoomId);
+            ViewBag.RoomId = new SelectList(db.Rooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
 
@@ -106,6 +110,7 @@ namespace Hostel.Controllers.HostelControllers
             {
                 return HttpNotFound();
             }
+            person.Room = db.Rooms?.Find(person.RoomId);
             return View(person);
         }
 
