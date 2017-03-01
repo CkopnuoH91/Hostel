@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Hostel.Models.Person>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Список жильцов";
 }
 
-<h2>Index</h2>
+<h3>@ViewBag.Title</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить жильца", "Create")
 </p>
 <table class="table">
     <tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PersonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PersonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PersonId })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.PersonId }) |
+            @Html.ActionLink("Просмотреть", "Details", new { id=item.PersonId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.PersonId })
         </td>
     </tr>
 }
