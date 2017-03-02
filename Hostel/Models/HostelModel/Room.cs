@@ -12,13 +12,14 @@ namespace Hostel.Models
         
         public int RoomId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле Номер комнаты не может быть пустым")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле {0} не может быть пустым")]
         [Display(Name = "Номер комнаты")]
+        [Range(0, 10000, ErrorMessage = "{0} должен быть в диапазоне от {1} до {2}")]
         public int Number { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле Количество мест не может быть пустым")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле {0} не может быть пустым")]
         [Display(Name = "Количество мест")]
-        [Range(2, 4, ErrorMessage = "Количество мест в комнате должно быть от 2 до 4")]       
+        [Range(2, 4, ErrorMessage = "{0} в комнате должно быть от {1} до {2}")]       
         public int Capacity { get; set; }
             
         public List<Person> Persons { get; set; }
