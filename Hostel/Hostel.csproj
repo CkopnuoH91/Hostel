@@ -185,6 +185,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BackUpDb\aspnet-Hostel-20170227104524.mdf" />
+    <Content Include="App_Data\BackUpDb\aspnet-Hostel-20170227104524_log.ldf">
+      <DependentUpon>aspnet-Hostel-20170227104524.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\BackUpDb\HostelDb.mdf" />
+    <Content Include="App_Data\BackUpDb\HostelDb_log.ldf">
+      <DependentUpon>HostelDb.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -252,9 +260,7 @@
     <Content Include="Views\People\FreeRooms.cshtml" />
     <Content Include="Views\Rooms\GetPersonsInRoom.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\BackUpDb\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
