@@ -15,6 +15,7 @@ namespace Hostel.Controllers.HostelControllers
         private HostelContext db = new HostelContext();
 
         // GET: People
+        [Authorize]
         public ActionResult Index()
         {
             var persons = db.Persons.Include(p => p.Room);
@@ -22,6 +23,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: People/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: People/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();
@@ -52,6 +55,7 @@ namespace Hostel.Controllers.HostelControllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "PersonId,RoomId,Name")] Person person)
         {
             if (ModelState.IsValid)
@@ -67,6 +71,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: People/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +95,7 @@ namespace Hostel.Controllers.HostelControllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "PersonId,RoomId,Name")] Person person)
         {
             if (ModelState.IsValid)
@@ -105,6 +111,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: People/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -123,6 +130,7 @@ namespace Hostel.Controllers.HostelControllers
         // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Person person = db.Persons.Find(id);
@@ -140,6 +148,7 @@ namespace Hostel.Controllers.HostelControllers
             base.Dispose(disposing);
         }
 
+        [Authorize]
         public ActionResult FreeRooms()
         {
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();

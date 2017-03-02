@@ -1,7 +1,7 @@
 ﻿@model Dictionary<Hostel.Models.Room, int>
 
 @{
-    ViewBag.Title = "Список свободных комнат";
+    ViewBag.Title = "Свободные места";
 }
 
 
@@ -17,7 +17,6 @@
             @Html.DisplayNameFor(model => model.Keys.ToList().FirstOrDefault().Capacity)
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Values.FirstOrDefault()) *@
             Число жильцов
         </th>
         <th>
@@ -44,4 +43,4 @@
 }
 
 </table>
-<footer>@Html.ActionLink("Список жильцов", "Index", "People")|@Html.ActionLink("Список комнат", "Index", "Rooms")</footer>
+<footer>@Html.ActionLink("Жильцы", "Index", "People") | @Html.ActionLink("Комнаты", "Index", "Rooms")</footer>

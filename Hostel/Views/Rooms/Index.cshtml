@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Hostel.Models.Room>
 
 @{
-    ViewBag.Title = "Список комнат";
+    ViewBag.Title = "Комнаты";
 }
 
 <h3>@ViewBag.Title</h3>
@@ -37,4 +37,4 @@
 }
 
 </table>
-<footer>@Html.ActionLink("Список жильцов", "Index", "People")|@Html.ActionLink("Список свободных комнат", "FreeRooms", "People")</footer>
+<footer>@Html.ActionLink("Жильцы", "Index", "People") | @Html.ActionLink("Свободные места", "FreeRooms", "People")</footer>

@@ -15,12 +15,14 @@ namespace Hostel.Controllers.HostelControllers
         private HostelContext db = new HostelContext();
 
         // GET: Rooms
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Rooms.ToList());
         }
 
         // GET: Rooms/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: Rooms/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace Hostel.Controllers.HostelControllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "RoomId,Number,Capacity")] Room room)
         {
             ViewBag.EqualNumbersOfRooms = "";
@@ -66,6 +70,7 @@ namespace Hostel.Controllers.HostelControllers
 
 
         // GET: Rooms/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace Hostel.Controllers.HostelControllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "RoomId,Number,Capacity")] Room room)
         {
             ViewBag.EqualNumbersOfRooms = "";
@@ -104,6 +110,7 @@ namespace Hostel.Controllers.HostelControllers
         }
 
         // GET: Rooms/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +128,7 @@ namespace Hostel.Controllers.HostelControllers
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Room room = db.Rooms.Find(id);
