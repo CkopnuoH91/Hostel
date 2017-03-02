@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Hostel.Models;
+using System.Data.Entity.Migrations;
 
 namespace Hostel.Controllers.HostelControllers
 {
@@ -68,7 +69,6 @@ namespace Hostel.Controllers.HostelControllers
             return View(room);
         }
 
-
         // GET: Rooms/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
@@ -93,16 +93,24 @@ namespace Hostel.Controllers.HostelControllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "RoomId,Number,Capacity")] Room room)
         {
-            ViewBag.EqualNumbersOfRooms = "";
-            if (db.Rooms.Any(e => e.Number == room.Number))
+            Room oldRoom = db.Rooms.Find(room.RoomId);
+            if (oldRoom.Number == room.Number)
             {
-                ViewBag.EqualNumbersOfRooms = "Комната с таким номером уже существует";
-                return View(room);
+                ViewBag.EqualNumbersOfRooms = "";
             }
-
+            else
+            {
+                if (db.Rooms.Any(e => e.Number == room.Number))
+                {
+                    ViewBag.EqualNumbersOfRooms = "Комната с таким номером уже существует";
+                    return View(room);
+                }                
+            }
+           
             if (ModelState.IsValid)
             {
-                db.Entry(room).State = EntityState.Modified;
+                //db.Entry(room).State = EntityState.Modified;
+                db.Rooms.AddOrUpdate(room); //При обновлении записи с одинаковым ключом предыдущая строка выдавала исключение
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -144,6 +152,22 @@ namespace Hostel.Controllers.HostelControllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Authorize]
+        public ActionResult GetPersonsInRoom(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var personsInRoom = db.Persons.Where(p=> p.RoomId == id);
+
+            string roomNumber = "";
+            roomNumber = db.Rooms.Find(id)?.Number.ToString();
+            ViewBag.PersonsInRoomTitle = "Жильцы комнаты " + roomNumber;
+
+            return View(personsInRoom);
         }
     }
 }

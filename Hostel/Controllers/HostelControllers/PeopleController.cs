@@ -45,7 +45,7 @@ namespace Hostel.Controllers.HostelControllers
         public ActionResult Create()
         {
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();
-            var freeRooms = roomsAndPersonsCount.Keys.Where(e =>  roomsAndPersonsCount[e] < e.Capacity).ToList();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e =>  roomsAndPersonsCount[e] < e.Capacity);
             ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number");
             return View();
         }
@@ -65,7 +65,7 @@ namespace Hostel.Controllers.HostelControllers
                 return RedirectToAction("Index");
             }
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();
-            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity);
             ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
@@ -85,7 +85,7 @@ namespace Hostel.Controllers.HostelControllers
             }
 
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();
-            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity);
             ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }
@@ -105,7 +105,7 @@ namespace Hostel.Controllers.HostelControllers
                 return RedirectToAction("Index");
             }
             var roomsAndPersonsCount = GetRoomsAndPersonsCount();
-            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity).ToList();
+            var freeRooms = roomsAndPersonsCount.Keys.Where(e => roomsAndPersonsCount[e] < e.Capacity);
             ViewBag.RoomId = new SelectList(freeRooms, "RoomId", "Number", person.RoomId);
             return View(person);
         }

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Hostel.Models.Person>
+
+<h3>@ViewBag.PersonsInRoomTitle</h3>
+
+<strong>@Html.DisplayNameFor(model => model.Name)</strong>
+
+<table class="table">
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+}
+
+</table>
+<footer>@Html.ActionLink("Комнаты", "Index", "Rooms")</footer>

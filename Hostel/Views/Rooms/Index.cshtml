@@ -31,7 +31,8 @@
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id=item.RoomId }) |
             @Html.ActionLink("Просмотреть", "Details", new { id=item.RoomId }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.RoomId })
+            @Html.ActionLink("Удалить", "Delete", new { id=item.RoomId }) |
+            @Html.ActionLink("Жильцы", "GetPersonsInRoom", new { id = item.RoomId })
         </td>
     </tr>
 }
